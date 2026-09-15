@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import Fastify from "fastify";
 import type { AppConfig } from "./config.js";
 import { AbstractionRequestSchema } from "./domain/contracts.js";
@@ -15,6 +16,37 @@ function getRoles(encodedPrincipal: string | undefined): string[] {
   } catch {
     return [];
   }
+}
+
+function parseTransportValue(value: unknown): unknown {
+  if (typeof value !== "string") return value;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed === "null") return null;
+  try {
+    return JSON.parse(trimmed);
+  } catch {
+    return value;
+  }
+}
+
+function normalizeClarioRequest(body: unknown): unknown {
+  if (!body || typeof body !== "object" || Array.isArray(body)) return body;
+  const envelope = body as Record<string, unknown>;
+  const testInput = parseTransportValue(envelope.testInput);
+  return {
+    requestId: typeof envelope.requestId === "string"
+      ? envelope.requestId
+      : typeof envelope.runId === "string" ? envelope.runId : randomUUID(),
+    caseId: envelope.caseId,
+    question: envelope.question ?? envelope.input,
+    testInput: typeof testInput === "string" ? {
+      challengeId: "clario-analysis",
+      description: testInput,
+      additionalDocuments: [],
+    } : testInput,
+    instructionSet: parseTransportValue(envelope.instructionSet),
+    executionMode: envelope.executionMode === "analysis-only" ? "baseline" : envelope.executionMode,
+  };
 }
 
 export function createApp(config: AppConfig, gateway: ModelGateway) {
@@ -35,7 +67,7 @@ export function createApp(config: AppConfig, gateway: ModelGateway) {
   }));
 
   app.post("/api/v1/registry/abstract", async (request, reply) => {
-    const parsed = AbstractionRequestSchema.safeParse(request.body);
+    const parsed = AbstractionRequestSchema.safeParse(normalizeClarioRequest(request.body));
     if (!parsed.success) return reply.code(400).send({ message: "Invalid request", issues: parsed.error.issues });
     const input = parsed.data;
     const registryCase = getCase(input.caseId);

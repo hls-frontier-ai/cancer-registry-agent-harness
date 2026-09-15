@@ -42,6 +42,8 @@ Example request:
 
 `executionMode` is `baseline` or `test`. Test input may contain a challenge ID, description, and up to ten synthetic documents. Test mode is disabled by default.
 
+Clario connector requests may use `runId`, `input`, and `executionMode: "analysis-only"`. The API maps those aliases to a baseline request and accepts JSON-serialized `testInput` and `instructionSet` transport values before applying the strict canonical schema.
+
 ### Clario instruction-strength comparison
 
 The default instruction set is frozen as `baseline-v0` in `benchmarks/baseline-v0.json` and exposed through the manifest. It is an intentionally inaccurate synthetic benchmark containing recognizable evidence-reconciliation, staging, treatment-status, and citation weaknesses for Clario to identify and repair. It is loaded from source whenever the process starts and is used whenever `instructionSet` is null or omitted. A retest never changes this object or persists replacement text.

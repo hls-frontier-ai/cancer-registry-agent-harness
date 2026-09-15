@@ -527,15 +527,17 @@ Provide these values when registering the target:
   "healthUrl": "https://<container-app-fqdn>/api/health",
   "authProfile": "entra-service-identity",
   "requestTemplate": {
-    "requestId": "{{runId}}",
+    "runId": "{{runId}}",
     "caseId": "{{caseId}}",
-    "question": "{{input}}",
-    "testInput": "{{testInput}}",
-    "instructionSet": "{{instructionSet}}",
+    "input": "{{input}}",
+    "testInput": {{testInput}},
+    "instructionSet": {{instructionSet}},
     "executionMode": "{{executionMode}}"
   },
   "responseSelector": "$"
 }
 ```
+
+The endpoint also accepts Clario's `analysis-only` execution mode as a baseline run, derives `requestId` from `runId` (or generates one), and tolerates JSON-serialized `testInput` and `instructionSet` values. Connector envelope metadata is discarded before the canonical request is strictly validated.
 
 Clario must verify the repository revision against the endpoint-reported revision before enabling **Run all**.

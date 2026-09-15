@@ -105,6 +105,26 @@ describe("registry API", () => {
     assert.equal(response.json().trace.instructionSetHash, hashInstructionSet(BASELINE_INSTRUCTIONS));
   });
 
+  it("normalizes the Clario analysis-only transport envelope", async () => {
+    const response = await buildApp().inject({
+      method: "POST",
+      url: "/api/v1/registry/abstract",
+      payload: {
+        runId: "clario-run-1",
+        caseId: "metastatic-breast-to-lung",
+        input: "Prepare a draft.",
+        testInput: "synthetic challenge text",
+        instructionSet: "null",
+        executionMode: "analysis-only",
+        analysisMetadata: { source: "clario" },
+      },
+    });
+    assert.equal(response.statusCode, 200);
+    assert.equal(response.json().requestId, "clario-run-1");
+    assert.equal(response.json().trace.instructionSetId, "baseline-v0");
+    assert.equal(response.json().trace.instructionSetSource, "baseline");
+  });
+
   it("rejects replacement instruction sets outside authenticated test mode", async () => {
     const response = await buildApp().inject({
       method: "POST",
