@@ -69,10 +69,15 @@ describe("registry API", () => {
     const snapshot = JSON.parse(readFileSync("benchmarks/baseline-v0.json", "utf8")) as {
       instructionSetId: string;
       immutable: boolean;
+      description: string;
       instructions: Record<string, string>;
     };
     assert.equal(snapshot.instructionSetId, "baseline-v0");
     assert.equal(snapshot.immutable, true);
+    assert.match(snapshot.description, /intentionally inaccurate synthetic demo benchmark/i);
+    assert.match(snapshot.instructions["pathology-evidence.system.v0"]!, /preliminary or explicitly superseded/i);
+    assert.match(snapshot.instructions["stage-evidence.system.v0"]!, /even when components are incomplete/i);
+    assert.match(snapshot.instructions["treatment-timeline.system.v0"]!, /as administered treatments/i);
     assert.deepEqual(snapshot.instructions, BASELINE_INSTRUCTIONS);
   });
 

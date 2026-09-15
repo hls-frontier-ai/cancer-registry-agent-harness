@@ -38,6 +38,7 @@ export function createHarnessManifest(revision: string) {
       id: BASELINE_INSTRUCTION_SET_ID,
       hash: hashInstructionSet(BASELINE_INSTRUCTIONS),
       immutable: true,
+      benchmarkPurpose: "Intentionally inaccurate synthetic baseline for instruction-improvement demonstrations",
       resetBehavior: "Reloaded from source at process start",
       replacementMode: "Authenticated complete-set replacement scoped to one test request",
       snapshot: "benchmarks/baseline-v0.json",

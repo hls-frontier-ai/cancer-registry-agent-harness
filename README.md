@@ -44,7 +44,7 @@ Example request:
 
 ### Clario instruction-strength comparison
 
-The default instruction set is frozen as `baseline-v0` in `benchmarks/baseline-v0.json` and exposed through the manifest. It is loaded from source whenever the process starts and is used whenever `instructionSet` is null or omitted. A retest never changes this object or persists replacement text.
+The default instruction set is frozen as `baseline-v0` in `benchmarks/baseline-v0.json` and exposed through the manifest. It is an intentionally inaccurate synthetic benchmark containing recognizable evidence-reconciliation, staging, treatment-status, and citation weaknesses for Clario to identify and repair. It is loaded from source whenever the process starts and is used whenever `instructionSet` is null or omitted. A retest never changes this object or persists replacement text.
 
 For a Clario retest, send a complete replacement set in the same request:
 
