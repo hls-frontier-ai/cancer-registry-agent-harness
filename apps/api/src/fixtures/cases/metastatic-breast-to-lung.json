@@ -1,0 +1,21 @@
+{
+  "id": "metastatic-breast-to-lung",
+  "displayName": "Breast primary with pulmonary metastasis",
+  "description": "Tests tumor identity, amended pathology precedence, partial TNM evidence, and treatment intent.",
+  "patient": { "syntheticId": "SYN-1001", "displayName": "Morgan Example" },
+  "documents": [
+    { "id": "onc-history-01", "type": "oncology-note", "status": "final", "authoredAt": "2019-04-12T14:00:00Z", "text": "History of left breast invasive ductal carcinoma, ER positive, treated with lumpectomy and adjuvant radiation." },
+    { "id": "rad-chest-01", "type": "radiology", "status": "final", "authoredAt": "2026-01-05T10:00:00Z", "text": "New 2.1 cm right upper lobe pulmonary lesion, suspicious for primary lung malignancy or metastasis. No enlarged mediastinal nodes." },
+    { "id": "path-prelim-01", "type": "pathology", "status": "preliminary", "authoredAt": "2026-01-12T16:00:00Z", "text": "Right lung biopsy: carcinoma, preliminary morphology favors lung primary. Immunostains pending." },
+    { "id": "path-final-01", "type": "pathology", "status": "final", "authoredAt": "2026-01-15T16:00:00Z", "supersedes": "path-prelim-01", "text": "Right lung biopsy: adenocarcinoma. Initial immunophenotype interpretation favors lung origin." },
+    { "id": "path-final-amendment-01", "type": "pathology", "status": "amended-final", "authoredAt": "2026-01-18T16:00:00Z", "supersedes": "path-final-01", "text": "Amended diagnosis: metastatic carcinoma consistent with breast primary. Tumor is GATA3 positive, ER positive, TTF-1 negative. This amendment replaces the prior interpretation of lung primary." },
+    { "id": "onc-plan-01", "type": "oncology-note", "status": "final", "authoredAt": "2026-01-24T14:00:00Z", "text": "Reviewed amended pathology with patient. Pulmonary lesion represents metastatic recurrence of breast cancer. Plan systemic endocrine therapy with palliative disease-control intent." },
+    { "id": "tx-endocrine-01", "type": "treatment", "status": "final", "authoredAt": "2026-02-01T09:00:00Z", "text": "Fulvestrant initiated for metastatic breast carcinoma." }
+  ],
+  "expectedInvariants": {
+    "tumorRelationship": "historical-breast-primary-with-lung-metastasis",
+    "authoritativePathologyDocumentId": "path-final-amendment-01",
+    "prohibitedStageInference": true,
+    "requiredCitationDocumentIds": ["onc-history-01", "path-final-amendment-01", "onc-plan-01"]
+  }
+}

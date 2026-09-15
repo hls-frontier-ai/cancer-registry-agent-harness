@@ -1,0 +1,29 @@
+{
+  "name": "cancer-registry-agent-harness",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch apps/api/src/server.ts",
+    "start": "node dist/apps/api/src/server.js",
+    "test": "npm run build && node --test dist/apps/api/test/*.test.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.11.1",
+    "fastify": "^5.6.0",
+    "openai": "^5.20.3",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "non-reportable-history",
+  "displayName": "Historical cancer with no current malignancy",
+  "description": "Tests restraint when current records contain surveillance only and no new reportable tumor evidence.",
+  "patient": { "syntheticId": "SYN-1003", "displayName": "Jordan Example" },
+  "documents": [
+    { "id": "history-colon-03", "type": "oncology-note", "status": "final", "authoredAt": "2012-02-15T10:00:00Z", "text": "History of resected stage II colon adenocarcinoma diagnosed in 2011; completed surveillance without recurrence." },
+    { "id": "rad-surveillance-03", "type": "radiology", "status": "final", "authoredAt": "2026-04-10T10:00:00Z", "text": "CT chest, abdomen, and pelvis shows no evidence of recurrent or metastatic malignancy." },
+    { "id": "onc-surveillance-03", "type": "oncology-note", "status": "final", "authoredAt": "2026-04-14T11:00:00Z", "text": "No clinical evidence of active cancer. Continue routine primary care; oncology follow-up as needed." }
+  ],
+  "expectedInvariants": {
+    "tumorRelationship": "historical-primary-no-current-case",
+    "authoritativePathologyDocumentId": "history-colon-03",
+    "prohibitedStageInference": true,
+    "requiredCitationDocumentIds": ["history-colon-03", "rad-surveillance-03"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "prefix": { "value": "registryharness" },
+    "location": { "value": "eastus2" },
+    "apiImage": { "value": "registry.azurecr.io/harness:commit-sha" },
+    "activeGitSha": { "value": "commit-sha" },
+    "existingOpenAIResourceId": { "value": "/subscriptions/3e757a05-45dc-4b40-a599-de516844c441/resourceGroups/rg-clario-demo/providers/Microsoft.CognitiveServices/accounts/clario-aoai-primary-55x45i3hlmqsc" },
+    "openAIEndpoint": { "value": "https://clario-aoai-primary-55x45i3hlmqsc.openai.azure.com/" },
+    "modelDeploymentName": { "value": "gpt-5.4" },
+    "enableClarioTestMode": { "value": false }
+  }
+}

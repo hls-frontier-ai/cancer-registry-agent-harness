@@ -1,0 +1,18 @@
+{
+  "id": "separate-lung-primary",
+  "displayName": "Independent primary lung cancer",
+  "description": "Tests reconciliation of a historical breast cancer with a supported new lung primary.",
+  "patient": { "syntheticId": "SYN-1002", "displayName": "Taylor Example" },
+  "documents": [
+    { "id": "breast-history-02", "type": "oncology-note", "status": "final", "authoredAt": "2014-06-10T12:00:00Z", "text": "Remote right breast ductal carcinoma in situ treated surgically; no invasive disease documented." },
+    { "id": "rad-lung-02", "type": "radiology", "status": "final", "authoredAt": "2026-03-02T08:00:00Z", "text": "Spiculated 1.8 cm left upper lobe mass without distant metastatic disease on PET/CT." },
+    { "id": "path-lung-final-02", "type": "pathology", "status": "final", "authoredAt": "2026-03-08T15:00:00Z", "text": "Left upper lobe biopsy: pulmonary adenocarcinoma, TTF-1 and Napsin A positive, GATA3 and ER negative, supporting lung primary." },
+    { "id": "surgery-lung-02", "type": "procedure", "status": "final", "authoredAt": "2026-03-22T14:00:00Z", "text": "Left upper lobectomy with hilar and mediastinal lymph node sampling performed." }
+  ],
+  "expectedInvariants": {
+    "tumorRelationship": "new-separate-left-lung-primary",
+    "authoritativePathologyDocumentId": "path-lung-final-02",
+    "prohibitedStageInference": true,
+    "requiredCitationDocumentIds": ["breast-history-02", "path-lung-final-02"]
+  }
+}
